@@ -62,3 +62,7 @@ class LogisticRegression:
     def predict(self, X):
         probas = self.predict_proba(X)
         return (probas > .5) * 1
+
+    def score(self, X, y):
+        y_pred = self.predict(X)
+        return (y_pred == y).mean()
