@@ -21,5 +21,24 @@ def roc_curve(y_true, y_score):
     return fpr, tpr, threshold
 
 
+def average_precision(actual, predict, k=None):
+    if k is not None:
+        predict = predict[:k]
+
+    num_tp = 0
+    numerator = 0
+    for i, p in enumerate(predict, 1):
+        relevance = (p in actual) * 1
+        num_tp += relevance
+        precision_at_k = num_tp / i
+        numerator += precision_at_k * relevance
+
+    return numerator / k
+
+
+def mean_average_precision(actuals, predicts, k=None):
+    return np.mean([average_precision(a, p, k) for a, p in zip(actuals, predicts)])
+
+
 def roc_auc_score(y_true, y_score):
     pass
