@@ -22,8 +22,10 @@ def roc_curve(y_true, y_score):
 
 
 def average_precision(actual, predict, k=None):
-    if k is not None:
-        predict = predict[:k]
+    if k is None:
+        k = len(predict)
+
+    predict = predict[:k]
 
     num_tp = 0
     numerator = 0
@@ -38,6 +40,15 @@ def average_precision(actual, predict, k=None):
 
 def mean_average_precision(actuals, predicts, k=None):
     return np.mean([average_precision(a, p, k) for a, p in zip(actuals, predicts)])
+
+
+def dcg(predict, k=None):
+    score = sum((p / np.log2(i + 1) for i, p in enumerate(predict[:k])))
+    return score
+
+
+def ndcg(actual, predict, k):
+    pass
 
 
 def roc_auc_score(y_true, y_score):
