@@ -6,4 +6,4 @@ def manhattan_dist(a, b):
 
 
 def euclidean_dist(a, b):
-    return np.sqrt(np.sum(np.power(a - b, 2)))
+    return np.sqrt(np.sum(np.power(a - b, 2), axis=1))
