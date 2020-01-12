@@ -44,5 +44,5 @@ class KMeans:
         return [self._nearest(self.cluster_centers_, x) for x in X]
 
     def _nearest(self, clusters, sample):
-        distances = euclidean(clusters, sample)
+        distances = euclidean(clusters, sample, axis=1)
         return np.argmin(distances)
